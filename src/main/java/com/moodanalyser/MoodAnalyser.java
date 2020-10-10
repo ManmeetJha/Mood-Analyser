@@ -2,17 +2,32 @@ package com.moodanalyser;
 
 public class MoodAnalyser {
 
-    public MoodAnalyser(Object o) {
+
+    public MoodAnalyser() {
     }
 
-    public String analyseMood(String message) {
+    public MoodAnalyser(String message) {
+    }
+
+    String message;
+    public String analyseMood()  {
         try {
-            if (message.contains("Sad"))
+            return analyseMoodAgain();
+        } catch (MoodAnalysisException e) {
+            return "HAPPY";
+        }
+    }
+
+    public String analyseMoodAgain() throws MoodAnalysisException {
+        try {
+            if(message.length()==0)
+                throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_EMPTY,"Please enter valid mood");
+            else if (message.contains("Sad"))
                 return "SAD";
             else
                 return "HAPPY";
         }catch(NullPointerException e){
-                return "HAPPY";
+            throw new MoodAnalysisException(MoodAnalysisException.ExceptionType.ENTERED_NULL,"Please enter valid mood");
         }
     }
 }
